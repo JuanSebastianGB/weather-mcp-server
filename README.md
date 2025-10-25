@@ -192,15 +192,6 @@ The server handles various error conditions:
 
 All errors are logged to stderr and return user-friendly error messages.
 
-## Contributing
-
-Contributions are welcome! Please follow these guidelines:
-
-1. Maintain type safety with TypeScript
-2. Follow existing code style
-3. Add appropriate error handling
-4. Update documentation for new features
-
 ## License
 
 ISC
