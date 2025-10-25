@@ -87,11 +87,24 @@ Retrieves active weather alerts for a specific state.
 ```
 weather-mcp/
 ├── src/
-│   └── index.ts          # Main server implementation
-├── build/                # Compiled JavaScript output
-├── package.json          # Project dependencies and scripts
-├── tsconfig.json         # TypeScript configuration
-└── README.md            # This file
+│   ├── index.ts              # Entry point
+│   ├── server/               # Server configuration
+│   │   └── index.ts          # MCP server setup
+│   ├── handlers/             # Request handlers
+│   │   └── tools.ts          # Tool handlers
+│   ├── services/             # Business logic
+│   │   └── weather-service.ts # Weather API services
+│   ├── utils/                # Utility functions
+│   │   ├── http-client.ts    # HTTP request utilities
+│   │   └── formatters.ts     # Data formatting
+│   ├── config/               # Configuration
+│   │   └── constants.ts      # Constants and config
+│   └── types/                # TypeScript types
+│       └── index.ts          # Type definitions
+├── build/                    # Compiled JavaScript output
+├── package.json              # Project dependencies and scripts
+├── tsconfig.json             # TypeScript configuration
+└── README.md                 # This file
 ```
 
 ### Build
@@ -104,10 +117,28 @@ pnpm build
 
 ### Development Workflow
 
-1. Make changes to `src/index.ts`
+1. Make changes to relevant files in the `src/` directory structure
 2. Run `pnpm build` to compile
 3. Test with your MCP client
 4. Restart the MCP server to see changes
+
+### Code Organization
+
+The project follows a modular architecture:
+
+- **`src/server/`**: MCP server configuration and setup
+- **`src/handlers/`**: Request handlers for each tool
+- **`src/services/`**: Business logic and API interactions
+- **`src/utils/`**: Reusable utility functions
+- **`src/config/`**: Configuration constants
+- **`src/types/`**: TypeScript type definitions
+
+This structure ensures:
+
+- ✅ **Separation of concerns**: Each module has a single responsibility
+- ✅ **Reusability**: Utilities and services can be easily reused
+- ✅ **Testability**: Each module can be tested independently
+- ✅ **Maintainability**: Changes are localized to specific modules
 
 ## Technical Details
 
