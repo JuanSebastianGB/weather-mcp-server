@@ -34,6 +34,7 @@ export interface AlertsResponse {
 export interface PointsResponse {
   properties: {
     forecast?: string;
+    observation?: string;
   };
 }
 
@@ -49,3 +50,15 @@ export interface WeatherConfig {
   geocodingService: string;
 }
 
+export interface SunriseSunsetResponse {
+  properties: {
+    sunrise: string[];
+    sunset: string[];
+    civilTwilightBegin: string[];
+    civilTwilightEnd: string[];
+    nauticalTwilightBegin: string[];
+    nauticalTwilightEnd: string[];
+    astronomicalTwilightBegin: string[];
+    astronomicalTwilightEnd: string[];
+  };
+}

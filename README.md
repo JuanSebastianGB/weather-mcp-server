@@ -80,6 +80,19 @@ Retrieves active weather alerts for a specific state.
 
 - List of active weather alerts with details (severity, area, event type, etc.)
 
+#### 3. Get Sunrise/Sunset
+
+Retrieves sunrise and sunset times for a given location.
+
+**Parameters:**
+
+- `location` (string): The location to get sunrise/sunset times for
+  - Examples: "California", "Los Angeles, CA", "San Francisco"
+
+**Returns:**
+
+- Sunrise and sunset times for today at the specified location
+
 ## Development
 
 ### Project Structure

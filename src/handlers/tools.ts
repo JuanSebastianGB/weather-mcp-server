@@ -3,6 +3,7 @@ import {
   getCoordinates,
   getForecast,
   getForecastUrl,
+  getSunriseSunset,
 } from "../services/weather-service.js";
 import { formatAlert, formatForecastPeriod } from "../utils/formatters.js";
 
@@ -131,3 +132,58 @@ export async function handleGetForecast(location: string) {
   };
 }
 
+/**
+ * Handles the get_sunrise_sunset tool request
+ */
+export async function handleGetSunriseSunset(location: string) {
+  // Geocode the location
+  const coordinates = await getCoordinates(location);
+
+  if (!coordinates) {
+    return {
+      content: [
+        {
+          type: "text" as const,
+          text: `Could not find location: ${location}. Please provide a more specific location (e.g., 'Los Angeles, CA' or 'San Francisco, California').`,
+        },
+      ],
+    };
+  }
+
+  // Get sunrise/sunset data
+  const sunriseSunsetData = await getSunriseSunset(
+    coordinates.latitude,
+    coordinates.longitude
+  );
+
+  if (!sunriseSunsetData || !sunriseSunsetData.properties) {
+    return {
+      content: [
+        {
+          type: "text" as const,
+          text: `No sunrise/sunset data available for ${location}.`,
+        },
+      ],
+    };
+  }
+
+  const props = sunriseSunsetData.properties;
+  const today = new Date().toISOString().split("T")[0];
+
+  // Find today's sunrise and sunset times
+  const sunriseToday =
+    props.sunrise?.find((time) => time.startsWith(today)) || "Not available";
+  const sunsetToday =
+    props.sunset?.find((time) => time.startsWith(today)) || "Not available";
+
+  const sunriseSunsetText = `Sunrise and Sunset Times for ${location}:\n\nToday (${today}):\nSunrise: ${sunriseToday}\nSunset: ${sunsetToday}`;
+
+  return {
+    content: [
+      {
+        type: "text" as const,
+        text: sunriseSunsetText,
+      },
+    ],
+  };
+}

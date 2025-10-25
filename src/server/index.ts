@@ -2,7 +2,11 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { SERVER_CONFIG } from "../config/constants.js";
-import { handleGetAlerts, handleGetForecast } from "../handlers/tools.js";
+import {
+  handleGetAlerts,
+  handleGetForecast,
+  handleGetSunriseSunset,
+} from "../handlers/tools.js";
 
 /**
  * Creates and configures the MCP server with all available tools
@@ -50,6 +54,22 @@ export function createServer(): McpServer {
     }
   );
 
+  // Register get_sunrise_sunset tool
+  server.tool(
+    "get_sunrise_sunset",
+    "Get sunrise and sunset times for a location",
+    {
+      location: z
+        .string()
+        .describe(
+          "The location to get sunrise/sunset times for (e.g., 'California', 'Los Angeles', 'San Francisco, CA')"
+        ),
+    },
+    async ({ location }) => {
+      return await handleGetSunriseSunset(location);
+    }
+  );
+
   return server;
 }
 
@@ -67,4 +87,3 @@ export async function startServer(): Promise<void> {
     process.exit(1);
   }
 }
-
