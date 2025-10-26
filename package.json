@@ -8,7 +8,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc && chmod 755 build/index.js"
+    "build": "tsc && chmod 755 build/index.js",
+    "inspect": "npx @modelcontextprotocol/inspector node build/index.js",
+    "inspect:dev": "npx @modelcontextprotocol/inspector tsx src/index.ts"
   },
   "files": [
     "build"
@@ -23,6 +25,8 @@
   },
   "devDependencies": {
     "@types/node": "^24.9.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
 }
